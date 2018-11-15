@@ -4,13 +4,13 @@
       "id": "1", 
       "firstName": "anna",
       "age": 23,
-      "company": "1"
+      "companyId": "1"
     },
     {
       "id": "2",
       "firstName": "bob",
       "age": 26,
-      "company": 2
+      "companyId": "3"
     }
   ],
   "companies": [
@@ -23,6 +23,11 @@
       "id": "2",
       "name": "samsung",
       "description": "galaxy"
+    },
+    {
+      "id": "3",
+      "name": "demonia",
+      "description": "platforms"
     }
   ]
 }
