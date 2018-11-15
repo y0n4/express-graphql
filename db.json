@@ -1,6 +1,28 @@
 {
   "users": [
-    {"id": "1", "firstName": "yona", "age": 24},
-    {"id": "2", "firstName": "jenna", "age": 23}
+    {
+      "id": "1", 
+      "firstName": "anna",
+      "age": 23,
+      "company": "1"
+    },
+    {
+      "id": "2",
+      "firstName": "bob",
+      "age": 26,
+      "company": 2
+    }
+  ],
+  "companies": [
+    {
+      "id": "1", 
+      "name": "apple",
+      "description": "iphone"
+    },
+    {
+      "id": "2",
+      "name": "samsung",
+      "description": "galaxy"
+    }
   ]
 }
