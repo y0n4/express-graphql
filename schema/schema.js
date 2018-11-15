@@ -23,22 +23,36 @@ const UserType = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLString},
     firstName: { type: GraphQLString },
-    age: { type: GraphQLInt},
-    company: { type: CompanyType }
+    age: { type: GraphQLInt },
+    company: { 
+      type: CompanyType,
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:3000/companies/${parentValue.companyId}`)
+        .then(res => res.data);
+      }
+    }
   } 
 });
 
-// function to get information about user based on id
+// query to get information
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    user: {
+    user: { //query for specific user
       type: UserType,
       args: { id: { type: GraphQLString }}, // expects argument of id to find user
       resolve(parentValue, args) { // goes into database and retrieve query
         return axios.get(`http://localhost:3000/users/${args.id}`)
-          .then(response => response.data); // for graphql to be able to read axios
+          .then(res => res.data); // for graphql to be able to read axios
       } 
+    },
+    company: { //query for specific company
+      type: CompanyType,
+      args: { id: {type: GraphQLString }},
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:3000/companies/${args.id}`)
+          .then(res => res.data);
+      }
     }
   }
 });
