@@ -8,16 +8,27 @@ const {
   GraphQLSchema,
 } = graphql // deconstruct
 
+const CompanyType = new GraphQLObjectType({
+  name: 'Company',
+  fields: {
+    id: { type: GraphQLString },
+    name: { type: GraphQLString },
+    description: { type: GraphQLString },
+  }
+});
+
 // identifies what data type user is
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: {
     id: { type: GraphQLString},
-    firstName: {type: GraphQLString},
+    firstName: { type: GraphQLString },
     age: { type: GraphQLInt},
+    company: { type: CompanyType }
   } 
 });
 
+// function to get information about user based on id
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
