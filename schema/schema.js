@@ -6,51 +6,61 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLSchema,
+  GraphQLList,
 } = graphql // deconstruct
+
+const url = 'http://localhost:3000';
 
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
-  fields: {
+  fields: () => ({
     id: { type: GraphQLString },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
-  }
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(parentValue, args) {
+        return axios.get(`${url}/companies/${parentValue.id}/users`)
+        .then(res => res.data); // bi-relational
+      }
+    }
+  })
 });
 
 // identifies what data type user is
 const UserType = new GraphQLObjectType({
   name: 'User',
-  fields: {
+  fields: () => ({
     id: { type: GraphQLString},
     firstName: { type: GraphQLString },
     age: { type: GraphQLInt },
     company: { 
-      type: CompanyType,
+      type: CompanyType, // associates company with user
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/companies/${parentValue.companyId}`)
-        .then(res => res.data);
+        return axios.get(`${url}/companies/${parentValue.companyId}`)
+        .then(res => res.data); // bi-relational
       }
     }
-  } 
+  })
 });
 
 // query to get information
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    user: { //query for specific user
+    user: { // query for specific user
       type: UserType,
       args: { id: { type: GraphQLString }}, // expects argument of id to find user
       resolve(parentValue, args) { // goes into database and retrieve query
-        return axios.get(`http://localhost:3000/users/${args.id}`)
+        return axios.get(`${url}/users/${args.id}`)
           .then(res => res.data); // for graphql to be able to read axios
       } 
     },
-    company: { //query for specific company
+    company: { // query for specific company
       type: CompanyType,
       args: { id: {type: GraphQLString }},
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/companies/${args.id}`)
+        return axios.get(`${url}/companies/${args.id}`)
           .then(res => res.data);
       }
     }
