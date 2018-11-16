@@ -14,4 +14,5 @@ Open [http://localhost:4000/graphiql](http://localhost:4000/graphiql)<br>
 Play with GraphiQL client using GraphQl syntax<br>
 Check out the docs on how to make queries and mutations
 
-The data is a simple hardcoded information of people and what company they work at. The connection between "user" and "company" is bi-relational.
+The data is a simply hardcoded information of random people and company they work at. <br>
+The connection between "user" and "company" is bi-relational.
