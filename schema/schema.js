@@ -83,7 +83,7 @@ const mutation = new GraphQLObjectType({
           .then(res => res.data); // best practice to return what you send
       }
     },
-    deleteUser: { // delete user info
+    deleteUser: { // delete specific user info
       type: UserType,
       args: {
         id: { type: new GraphQLNonNull(GraphQLString) } // requires id
@@ -91,6 +91,19 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { id }) {
         return axios.delete(`${url}/users/${id}`)
           .then(res => res.data); // should return null
+      }
+    },
+    editUser: { // edit specific user information
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        firstName: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        companyId: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return axios.patch(`${url}/users/${args.id}`, args)
+        .then(res => res.data);
       }
     }
   }
