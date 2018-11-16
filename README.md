@@ -3,10 +3,15 @@ This repo is strictly just server side to get some practice in GraphQL and Expre
 In the project directory start off to install necessary dependencies:
 ### `npm install`
 
-Then run on json server to access data:
+Then run on json server:
 ### `npm run json:server`
+Runs [http://localhost:3000](http://localhost:3000)<br>
+You can change the endpoint and play around with acessing data
 
-To play with GraphiQL client (make queries and mutations):
+For GraphQL to access data from json server:
 ### `npm run dev`
+Open [http://localhost:4000/graphiql](http://localhost:4000/graphiql)<br>
+Play with GraphiQL client using GraphQl syntax<br>
+Check out the docs on how to make queries and mutations
 
 The data is a simple hardcoded information of people and what company they work at. The connection between "user" and "company" is bi-relational.
